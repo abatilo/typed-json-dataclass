@@ -31,84 +31,118 @@ class TypedJsonMixin:
             # type in a different way
             if field_value is not None:
                 class_name = self.__class__.__name__
-                if (isinstance(field_value, expected_type) and
-                   isinstance(field_value, list)):
-                    if not hasattr(field_def.type, '__args__'):
+
+                # A ForwardRef will appear to just be a str
+                # Check that the expected type is a str instead of an actual
+                # type definition, and check that the name of the current class
+                # matches the string in the ForwardRef.
+                if (class_name == expected_type and
+                        isinstance(expected_type, str)):
+                    # Double check that the type itself and the current class
+                    # are the same
+                    if actual_type != self.__class__:
                         raise TypeError((f'{class_name}.{field_name} was '
-                                        f'defined as a {actual_type}, '
-                                         'but you must use typing.List[type] '
+                                        'defined as a <class '
+                                         f'\'{expected_type}\'>, '
+                                         f'but we found a {actual_type} '
                                          'instead'))
-
-                    expected_element_type = field_def.type.__args__[0]
-                    if isinstance(expected_element_type, typing.TypeVar):
-                        raise TypeError((f'{class_name}.{field_name} was '
-                                        f'defined as a {actual_type}, '
-                                         'but is missing information about the'
-                                         ' type of the elements inside it'))
-
-                    if not self._ensure_no_native_collections(
-                            expected_element_type
-                            ):
-                        raise TypeError(((f'{class_name}.{field_name} was '
-                                          'detected to use a native Python '
-                                          'collection in its type definition. '
-                                          'We should only use typing.List[] '
-                                          'for these')))
-
-                    for i, element in enumerate(field_value):
-                        if isinstance(element, dict):
-                            if not element:
-                                raise TypeError(((f'{class_name}.{field_name} '
-                                                  'was found to have an '
-                                                  'empty dictionary. An empty '
-                                                  'dictionary will not '
-                                                  'properly instantiate a '
-                                                  'nested object')))
-
-                            # Set reference of the specific list index. Kind of
-                            # a hack, to get around the fact that __setattr__
-                            # can only seem to take field names, but not
-                            # indices
-                            getattr(
-                                self, field_name
-                            )[i] = expected_element_type(**element)
-
-                    if not self._validate_list_types(
-                            field_value, field_def.type
-                            ):
-                        raise TypeError((f'{class_name}.{field_name} is '
-                                         f'{field_value} which does not match '
-                                         f'{field_def.type}. Unfortunately, '
-                                         'we are unable to infer the explicit '
-                                         f'type of {class_name}.{field_name}'))
-
-                elif not isinstance(field_value, expected_type):
-                    if isinstance(field_value, dict):
-                        if not self._ensure_no_native_collections(
-                                expected_type
-                              ):
+                else:
+                    if (isinstance(field_value, expected_type) and
+                       isinstance(field_value, list)):
+                        if not hasattr(field_def.type, '__args__'):
                             raise TypeError((f'{class_name}.{field_name} was '
-                                             'detected to use a native Python '
-                                             'dict in its type definition. '
-                                             'We should only use custom '
-                                             'objects for these'))
-                        try:
-                            setattr(
-                                self, field_name, expected_type(**field_value)
-                            )
-                        except TypeError:
+                                            f'defined as a {actual_type}, '
+                                             'but you must use '
+                                             'typing.List[type] '
+                                             'instead'))
+
+                        expected_element_type = field_def.type.__args__[0]
+                        if isinstance(expected_element_type, typing.TypeVar):
+                            raise TypeError((f'{class_name}.{field_name} was '
+                                            f'defined as a {actual_type}, '
+                                             'but is missing information '
+                                             'about the'
+                                             ' type of the elements inside '
+                                             'it'))
+
+                        if not self._ensure_no_native_collections(
+                                expected_element_type
+                                ):
+                            raise TypeError(((f'{class_name}.{field_name} was '
+                                              'detected to use a native '
+                                              'Python '
+                                              'collection in its type '
+                                              'definition. '
+                                              'We should only use '
+                                              'typing.List[] '
+                                              'for these')))
+
+                        for i, element in enumerate(field_value):
+                            if isinstance(element, dict):
+                                if not element:
+                                    raise TypeError(((f'{class_name}.'
+                                                      f'{field_name} '
+                                                      'was found to have an '
+                                                      'empty dictionary. An '
+                                                      'empty '
+                                                      'dictionary will not '
+                                                      'properly instantiate a '
+                                                      'nested object')))
+
+                                # Set reference of the specific list index.
+                                # Kind of a hack, to get around the fact that
+                                # __setattr__ can only seem to take field
+                                # names, but not indices
+                                getattr(
+                                    self, field_name
+                                )[i] = expected_element_type(**element)
+
+                        if not self._validate_list_types(
+                                field_value, field_def.type
+                                ):
+                            raise TypeError((f'{class_name}.{field_name} is '
+                                             f'{field_value} which does not '
+                                             'match '
+                                             f'{field_def.type}. '
+                                             'Unfortunately, '
+                                             'we are unable to infer the '
+                                             'explicit '
+                                             f'type of {class_name}.'
+                                             f'{field_name}'))
+
+                    elif not isinstance(field_value, expected_type):
+                        if isinstance(field_value, dict):
+                            if not self._ensure_no_native_collections(
+                                    expected_type
+                                  ):
+                                raise TypeError((f'{class_name}.{field_name} '
+                                                 'was '
+                                                 'detected to use a native '
+                                                 'Python '
+                                                 'dict in its type '
+                                                 'definition. '
+                                                 'We should only use custom '
+                                                 'objects for these'))
+                            try:
+                                setattr(
+                                    self,
+                                    field_name,
+                                    expected_type(**field_value)
+                                )
+                            except TypeError:
+                                raise TypeError(f'{class_name}.{field_name} '
+                                                'is '
+                                                'expected to be '
+                                                f'{expected_type}, but value '
+                                                f'{field_value} is a dict '
+                                                'with unexpected keys')
+                        else:
                             raise TypeError(f'{class_name}.{field_name} is '
                                             'expected to be '
                                             f'{expected_type}, but value '
-                                            f'{field_value} is a dict '
-                                            'with unexpected keys')
-                    else:
-                        raise TypeError(f'{class_name}.{field_name} is '
-                                        'expected to be '
-                                        f'{expected_type}, but value '
-                                        f'{field_value} with '
-                                        f'type {actual_type} was found '
-                                        'instead')
+                                            f'{field_value} with '
+                                            f'type {actual_type} was found '
+                                            'instead')
 
     def _ensure_no_native_collections(self, expected_type):
         """
@@ -130,6 +164,15 @@ class TypedJsonMixin:
         # typing.List[type] will have __args__
         if type(actual_value) is list and hasattr(expected_type, '__args__'):
             nested_type = expected_type.__args__[0]
+            if isinstance(nested_type, typing.ForwardRef):
+                # Strip out ForwardRef(' and ') as a hack for getting the
+                # expected class
+                type_for_forward_ref = str(nested_type)[12:-2]
+                return all(
+                    type_for_forward_ref == v.__class__.__name__
+                    for v in actual_value
+                )
+
             return all(
                 self._validate_list_types(v, nested_type) for v in actual_value
             )

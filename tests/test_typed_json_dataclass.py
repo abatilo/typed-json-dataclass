@@ -385,3 +385,53 @@ def test_complex_nested_lists():
                                         ]}
                                     ]})
     assert object_dict.to_json() == objectOne.to_json()
+
+
+# Simulate a LinkedList style scenario
+@dataclass
+class Node(TypedJsonMixin):
+    next_node: 'Node' = None
+
+
+def test_that_incorrect_recursive_definitions_throws():
+    with pytest.raises(TypeError) as e_info:
+        Node(next_node='something else')
+    assert ('Node.next_node was defined as a <class \'Node\'>, but we '
+            'found a <class \'str\'> instead') == str(e_info.value)
+
+
+def test_that_correct_recursive_definitions_is_handled():
+    root = Node(next_node=Node())
+    assert root.to_dict() == {'next_node': {'next_node': None}}
+
+
+# Simulate a Graph
+@dataclass
+class GraphNode(TypedJsonMixin):
+    children: List['GraphNode']
+
+
+def test_that_recursive_collection_is_handled():
+    GraphNode(children=[GraphNode([]), GraphNode([])])
+
+
+def test_that_recursive_collection_with_non_matching_types_throws():
+    with pytest.raises(TypeError) as e_info:
+        GraphNode(children=[GraphNode([]), 'not a GraphNode'])
+    assert ('GraphNode.children is [GraphNode(children=[]), \'not a '
+            'GraphNode\'] which does not match typing.List[ForwardRef'
+            '(\'GraphNode\')]. Unfortunately, we are unable to infer the '
+            'explicit type of GraphNode.children') == str(e_info.value)
+
+
+def test_deeply_nested_forward_references_are_handled():
+    GraphNode(children=[GraphNode(children=[GraphNode(children=[])])])
+
+
+def test_deeply_nested_forward_references__with_non_matching_types_throws():
+    with pytest.raises(TypeError) as e_info:
+        GraphNode(children=[GraphNode(children=[GraphNode(children=['bad'])])])
+    assert ('GraphNode.children is [\'bad\'] which does not match '
+            'typing.List[ForwardRef(\'GraphNode\')]. Unfortunately, we are '
+            'unable to infer the explicit type of GraphNode.'
+            'children') == str(e_info.value)
