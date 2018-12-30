@@ -10,7 +10,8 @@ VERSION = '0.0.1'
 about = {'version': VERSION}
 
 with open(
-    os.path.join(here, 'typed_json_dataclass', '__init__.py'), 'r', encoding='utf-8'
+    os.path.join(here, 'typed_json_dataclass', '__init__.py'), 'r',
+    encoding='utf-8'
 ) as f:
     for line in f:
         if line.startswith('__version__'):
