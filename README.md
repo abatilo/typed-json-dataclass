@@ -134,6 +134,9 @@ alice = Person.from_dict(request_data_as_dict)
 
 ## Changelog
 
+0.1.1 - Sun, 2018-12-30
+* Correct some lazy tests
+
 0.1.0 - Sun, 2018-12-30
 * We now support recursive ForwardRef type definitions
 

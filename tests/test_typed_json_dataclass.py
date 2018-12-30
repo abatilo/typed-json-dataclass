@@ -412,7 +412,18 @@ class GraphNode(TypedJsonMixin):
 
 
 def test_that_recursive_collection_is_handled():
-    GraphNode(children=[GraphNode([]), GraphNode([])])
+    expected = {
+        'children': [
+            {
+                'children': []
+            },
+            {
+                'children': []
+            }
+        ]
+    }
+    assert (GraphNode(children=[GraphNode([]), GraphNode([])]).to_dict() ==
+            expected)
 
 
 def test_that_recursive_collection_with_non_matching_types_throws():
@@ -425,7 +436,21 @@ def test_that_recursive_collection_with_non_matching_types_throws():
 
 
 def test_deeply_nested_forward_references_are_handled():
-    GraphNode(children=[GraphNode(children=[GraphNode(children=[])])])
+    expected = {
+        'children': [
+            {
+                'children': [
+                    {
+                        'children': []
+                    }
+                ]
+            }
+        ]
+    }
+    assert (GraphNode(
+                children=[GraphNode(children=[GraphNode(children=[])])]
+            ).to_dict()
+            == expected)
 
 
 def test_deeply_nested_forward_references__with_non_matching_types_throws():
