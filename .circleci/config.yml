@@ -43,7 +43,7 @@ jobs:
       - checkout
       - run: pip install pipenv
       - run: pipenv install --dev
-      - run: pipenv run pytest --cov-report html --cov-report xml:codecov.xml --junit-xml=coverage.xml --cov-branch --cov-fail-under=90 -v --cov=sanic_swagger tests/
+      - run: make test
       - run: pipenv run codecov -t $CODECOV_TOKEN
 
   # deploy:
