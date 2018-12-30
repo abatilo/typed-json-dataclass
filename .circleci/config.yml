@@ -41,7 +41,7 @@ jobs:
     working_directory: ~/typed_json_dataclass
     steps:
       - checkout
-      - run: pip install pipenv
+      - run: pip install pipenv==2018.11.26
       - run: pipenv install --dev
       - run: make test
       - run: pipenv run codecov -t $CODECOV_TOKEN
@@ -52,7 +52,7 @@ jobs:
     working_directory: ~/typed_json_dataclass
     steps:
       - checkout
-      - run: pip install pipenv
+      - run: pip install pipenv==2018.11.26
       - run: pipenv install --dev
       - run:
           name: Verify git tag vs. version
