@@ -60,7 +60,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3.7',
     ],
-    keywords='dataclasses dataclass type-safe json mypy pyre marshmallow attrs cattrs',
+    keywords='dataclasses dataclass json mypy pyre marshmallow attrs cattrs',
     python_requires='==3.7.*',
     cmdclass={
         'verify': VerifyVersionCommand,
