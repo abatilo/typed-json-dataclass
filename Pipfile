@@ -1,0 +1,30 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+flake8 = "*"
+pytest = "*"
+coverage = "*"
+flake8-quotes = "*"
+flake8-deprecated = "*"
+flake8-mutable = "*"
+flake8-builtins = "*"
+flake8-bugbear = "*"
+flake8-tuple = "*"
+flake8-blind-except = "*"
+flake8-class-newline = "*"
+flake8-import-order = "*"
+flake8-alfred = "*"
+pep8-naming = "*"
+flake8-comprehensions = "*"
+neovim = "*"
+pytest-cov = "*"
+codecov = "*"
+twine = "*"
+
+[packages]
+
+[requires]
+python_version = "3.7"
