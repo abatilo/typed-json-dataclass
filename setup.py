@@ -6,7 +6,7 @@ from setuptools.command.install import install
 
 here = os.path.abspath(os.path.dirname(__file__))
 
-VERSION = '0.0.1'
+VERSION = '0.0.2'
 about = {'version': VERSION}
 
 with open(
