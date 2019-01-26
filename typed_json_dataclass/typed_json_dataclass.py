@@ -162,7 +162,8 @@ class TypedJsonMixin:
         all elements in the list are uniform
         """
         # typing.List[type] will have __args__
-        if type(actual_value) is list and hasattr(expected_type, '__args__'):
+        if isinstance(actual_value, list) and \
+           hasattr(expected_type, '__args__'):
             nested_type = expected_type.__args__[0]
             if isinstance(nested_type, typing.ForwardRef):
                 # Strip out ForwardRef(' and ') as a hack for getting the
@@ -177,7 +178,7 @@ class TypedJsonMixin:
                 self._validate_list_types(v, nested_type) for v in actual_value
             )
         else:
-            return type(actual_value) is expected_type
+            return isinstance(actual_value, expected_type)
 
     @classmethod
     def from_dict(cls, raw_dict):
