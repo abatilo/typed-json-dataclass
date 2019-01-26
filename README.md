@@ -158,8 +158,11 @@ compliant.
 
 ## Changelog
 
-0.1.2 - Wed, 2019-05-29
+0.2.1 - Wed, 2019-05-29
 * Upgrade urllib3 to address CVE-2019-11324
+
+0.2.0 - Sat, 2018-1-26
+* Add automatic mapping modes
 
 0.1.1 - Sun, 2018-12-30
 * Correct some lazy tests
