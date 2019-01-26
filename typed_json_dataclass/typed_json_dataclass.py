@@ -2,6 +2,15 @@
 import json
 import typing
 from dataclasses import asdict
+from enum import Enum
+
+from typed_json_dataclass.utils import to_camel, to_snake, recursive_rename
+
+
+class MappingMode(Enum):
+    SnakeCase = 1
+    CamelCase = 2
+    NoMap = 3
 
 
 class TypedJsonMixin:
@@ -181,40 +190,70 @@ class TypedJsonMixin:
             return isinstance(actual_value, expected_type)
 
     @classmethod
-    def from_dict(cls, raw_dict):
+    def from_dict(cls, raw_dict, *, mapping_mode=MappingMode.NoMap):
         """Given a python dict, create an instance of the implementing class.
 
         :raw_dict: A dictionary that represents the DTO to create
+        :mapping_mode: Format for properties
         :returns: Returns an instance of the DTO, instantiated via the dict
         """
-        return cls(**raw_dict)
+
+        if not isinstance(mapping_mode, MappingMode):
+            raise ValueError('Invalid mapping mode')
+
+        if mapping_mode == MappingMode.NoMap:
+            return cls(**raw_dict)
+
+        format_method = to_snake if mapping_mode == MappingMode.SnakeCase \
+            else to_camel
+        mapped_dict = recursive_rename(raw_dict, format_method)
+        return cls(**mapped_dict)
 
     @classmethod
-    def from_json(cls, raw_json):
+    def from_json(cls, raw_json, *, mapping_mode=MappingMode.NoMap):
         """Given a raw json string, create an instance of the implementing class.
 
         :raw_json: A json string that represents the DTO to create
+        :mapping_mode: Format for properties
         :returns: Returns an instance of the DTO, instantiated via the json
         """
-        return cls(**json.loads(raw_json))
 
-    def to_dict(self, *, keep_none=False):
+        return cls.from_dict(json.loads(raw_json), mapping_mode=mapping_mode)
+
+    def to_dict(self, *, keep_none=False, mapping_mode=MappingMode.NoMap):
         """Express the DTO as a dictionary.
 
+        :keep_none: Filter keys that are None
+        :mapping_mode: Format for properties
         :returns: Returns the instantiated DTO as a dictionary
         """
-        if keep_none:
-            return asdict(self)
-        else:
-            return {k: v for k, v in asdict(self).items() if v is not None}
+        if not isinstance(mapping_mode, MappingMode):
+            raise ValueError('Invalid mapping mode')
 
-    def to_json(self, *, keep_none=False):
+        self_dict = None
+        mapped_dict = {}
+
+        if keep_none:
+            self_dict = asdict(self)
+        else:
+            self_dict = {k: v for k, v in asdict(self).items()
+                         if v is not None}
+
+        if mapping_mode == MappingMode.NoMap:
+            return self_dict
+
+        format_method = to_snake if mapping_mode == MappingMode.SnakeCase \
+            else to_camel
+        mapped_dict = recursive_rename(self_dict, format_method)
+        return mapped_dict
+
+    def to_json(self, *, keep_none=False, mapping_mode=MappingMode.NoMap):
         """Express the DTO as a json string.
 
+        :keep_none: Filter keys that are None
+        :mapping_mode: Format for properties
         :returns: Returns the instantiated DTO as a json string
         """
-        if keep_none:
-            return json.dumps(asdict(self))
-        else:
-            return json.dumps({k: v for k, v in asdict(self).items()
-                              if v is not None})
+        return json.dumps(self.to_dict(
+            keep_none=keep_none,
+            mapping_mode=mapping_mode))
