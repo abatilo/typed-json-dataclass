@@ -158,6 +158,9 @@ compliant.
 
 ## Changelog
 
+0.2.0 - Sat, 2018-1-26
+* Add automatic mapping modes
+
 0.1.1 - Sun, 2018-12-30
 * Correct some lazy tests
 

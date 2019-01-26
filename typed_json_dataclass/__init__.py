@@ -3,7 +3,7 @@ from typed_json_dataclass.typed_json_dataclass import (
     MappingMode,
 )
 
-__version__ = '0.1.1'
+__version__ = '0.2.0'
 __all__ = [
     'TypedJsonMixin',
     'MappingMode',
