@@ -74,7 +74,7 @@ def to_json(self, *, keep_none=False):
 
 ## Examples
 
-Converting your dataclass to a JSON serializable format:
+### Converting your dataclass to a JSON serializable format
 ```python
 from typing import List
 from dataclasses import dataclass
@@ -96,6 +96,7 @@ family = Family(people=[bob, alice])
 print(family.to_json())
 # => {"people": [{"name": "Bob", "age": 24}, {"name": "Alice", "age": 32}]}
 ```
+
 
 If your data doesn't match the type definitions, you'll get a helpful error:
 ```python
@@ -131,6 +132,29 @@ request_data_as_dict = {
 alice = Person.from_dict(request_data_as_dict)
 # => TypeError: Person.age is expected to be <class 'int'>, but value 32 with type <class 'str'> was found instead
 ```
+
+### Setting a mapping_mode for auto mapping
+```python
+from dataclasses import dataclass
+from typed_json_dataclass import TypedJsonMixin, MappingMode
+
+@dataclass
+class Person(TypedJsonMixin):
+    person_name: str
+    person_age: int
+
+request_data_as_dict = {
+    'personName': 'Alice',
+    'personAge': 32
+}
+
+alice = Person.from_dict(request_data_as_dict, mapping_mode=MappingMode.SnakeCase)
+# => Person(person_name='Alice', person_age=32)
+```
+
+This mapping mode is useful for when you get requests that have the JSON in a
+camel case format, but you want your objects to be snake case and stay PEP8
+compliant.
 
 ## Changelog
 
