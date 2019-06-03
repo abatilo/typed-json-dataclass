@@ -1,3 +1,4 @@
+*.pyc
 codecov.xml
 .coverage
 coverage.xml
