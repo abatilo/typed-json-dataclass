@@ -158,6 +158,9 @@ compliant.
 
 ## Changelog
 
+0.2.2 - Sun, 2019-06-02
+* Fixes [issue #4](https://github.com/abatilo/typed-json-dataclass/issues/4)
+
 0.2.1 - Wed, 2019-05-29
 * Upgrade urllib3 to address CVE-2019-11324
 

@@ -56,8 +56,19 @@ class TypedJsonMixin:
                                          f'but we found a {actual_type} '
                                          'instead'))
                 else:
-                    if (isinstance(field_value, expected_type) and
-                       isinstance(field_value, list)):
+                    # Optionals are technically just Union[T, None]
+                    if expected_type == typing.Union:
+                        possible_types = field_def.type.__args__
+                        matches = (isinstance(field_value, possible_type) for
+                                   possible_type in possible_types)
+                        if not any(matches):
+                            raise TypeError((f'{class_name}.{field_name} was '
+                                             'defined to be any of: '
+                                             f'{possible_types} but was found '
+                                             f'to be {actual_type} instead'))
+
+                    elif (isinstance(field_value, expected_type) and
+                          isinstance(field_value, list)):
                         if not hasattr(field_def.type, '__args__'):
                             raise TypeError((f'{class_name}.{field_name} was '
                                             f'defined as a {actual_type}, '
