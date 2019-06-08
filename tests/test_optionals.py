@@ -35,8 +35,8 @@ def test_optionals_that_dont_match_raise():
     with pytest.raises(TypeError) as e_info:
         print(PersonWithOptionalAge('John', '42').to_dict())
     assert ('PersonWithOptionalAge.age was defined to be any of: (<class '
-            '\'int\'>, <class \'NoneType\'>) but was found to be <class '
-            '\'str\'> instead') == str(e_info.value)
+            "'int'>, <class 'NoneType'>) but was found to be <class "
+            "'str'> instead") == str(e_info.value)
 
 
 @dataclass

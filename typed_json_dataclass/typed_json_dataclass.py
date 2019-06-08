@@ -52,7 +52,7 @@ class TypedJsonMixin:
                     if actual_type != self.__class__:
                         raise TypeError((f'{class_name}.{field_name} was '
                                         'defined as a <class '
-                                         f'\'{expected_type}\'>, '
+                                         f"'{expected_type}'>, "
                                          f'but we found a {actual_type} '
                                          'instead'))
                 else:

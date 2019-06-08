@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "typed-json-dataclass"
+version = "1.0.0"
+description = "Make your dataclasses automatically validate their types"
+authors = ["Aaron <AaronBatilo@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "http://github.com/abatilo/typed_json_dataclass"
+repository = "http://github.com/abatilo/typed_json_dataclass"
+
+keywords = ['dataclasses', 'dataclass', 'json', 'mypy', 'pyre', 'marshmallow', 'attrs', 'cattrs']
+
+classifiers=[
+  'Intended Audience :: Developers',
+  'Development Status :: 5 - Production/Stable',
+  'Topic :: Software Development :: Libraries :: Python Modules',
+  'Environment :: Web Environment',
+  'License :: OSI Approved :: MIT License',
+  'Programming Language :: Python :: 3.7',
+]
+
+[tool.poetry.dependencies]
+python = "==3.7.*"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^3.7"
+pytest = "^4.6"
+coverage = "^4.5"
+flake8-quotes = "^2.0"
+flake8-deprecated = "^1.3"
+flake8-mutable = "^1.2"
+flake8-builtins = "^1.4"
+flake8-bugbear = "^19.3"
+flake8-tuple = "^0.3.1"
+flake8-blind-except = "^0.1.1"
+flake8-class-newline = "^1.6"
+flake8-import-order = "^0.18.1"
+flake8-alfred = "^1.1"
+pep8-naming = "^0.8.2"
+flake8-comprehensions = "^2.1"
+pytest-cov = "^2.7"
+codecov = "^2.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

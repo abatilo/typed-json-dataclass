@@ -49,7 +49,7 @@ def test_that_invalid_dict_throws_exception():
     raw_dict = {'nam': 'msa.doc'}
     with pytest.raises(TypeError) as e_info:
         Document.from_dict(raw_dict)
-    assert ('__init__() got an unexpected keyword argument \'nam\'' ==
+    assert ("__init__() got an unexpected keyword argument 'nam'" ==
             str(e_info.value))
 
 
@@ -57,8 +57,8 @@ def test_that_dict_with_wrong_type_throws_exception():
     raw_dict = {'name': True}
     with pytest.raises(TypeError) as e_info:
         Document.from_dict(raw_dict)
-    assert ('Document.name is expected to be <class \'str\'>, but value '
-            'True with type <class \'bool\'> '
+    assert ("Document.name is expected to be <class 'str'>, but value "
+            "True with type <class 'bool'> "
             'was found instead') == str(e_info.value)
 
 
@@ -79,7 +79,7 @@ def test_that_nested_objects_in_lists_with_invalid_keys_throws_exception():
     raw_dict = {'name': 'msa.doc', 'paragraphs': [{'tex': 'first paragraph'}]}
     with pytest.raises(TypeError) as e_info:
         Document.from_dict(raw_dict)
-    assert (('__init__() got an unexpected keyword argument \'tex\'') ==
+    assert (("__init__() got an unexpected keyword argument 'tex'") ==
             str(e_info.value))
 
 
@@ -87,8 +87,8 @@ def test_that_objects_with_wrong_type_in_nested_list_throws_exception():
     raw_dict = {'name': 'msa.doc', 'paragraphs': [{'text': 0}]}
     with pytest.raises(TypeError) as e_info:
         Document.from_dict(raw_dict)
-    assert ('Paragraph.text is expected to be <class \'str\'>, but value 0 '
-            'with type <class \'int\'> '
+    assert ("Paragraph.text is expected to be <class 'str'>, but value 0 "
+            "with type <class 'int'> "
             'was found instead') == str(e_info.value)
 
 
@@ -103,9 +103,9 @@ def test_that_nested_object_that_is_not_in_list_with_wrong_type_throws():
     raw_dict = {'title': 'book', 'author': {'name': 0}}
     with pytest.raises(TypeError) as e_info:
         Book.from_dict(raw_dict)
-    assert (('Book.author is expected to be <class \''
-             'test_typed_json_dataclass.Author\'>, '
-             'but value {\'name\': 0} is a dict with unexpected keys') ==
+    assert (("Book.author is expected to be <class '"
+             "test_typed_json_dataclass.Author'>, "
+             "but value {'name': 0} is a dict with unexpected keys") ==
             str(e_info.value))
 
 
@@ -124,7 +124,7 @@ def test_document_to_dict_with_null():
 def test_that_dict_with_untyped_list_throws_exception():
     with pytest.raises(TypeError) as e_info:
         MissingListType([])
-    assert ('MissingListType.some_list was defined as a <class \'list\'>, '
+    assert ("MissingListType.some_list was defined as a <class 'list'>, "
             'but is missing information about the type of the elements '
             'inside it') == str(e_info.value)
 
@@ -142,7 +142,7 @@ def test_that_invalid_json_throws_exception():
     raw_json = '{"nam": "msa.doc"}'
     with pytest.raises(TypeError) as e_info:
         Document.from_json(raw_json)
-    assert ('__init__() got an unexpected keyword argument \'nam\'' ==
+    assert ("__init__() got an unexpected keyword argument 'nam'" ==
             str(e_info.value))
 
 
@@ -150,8 +150,8 @@ def test_that_json_with_wrong_type_throws_exception():
     raw_json = '{"name": true}'
     with pytest.raises(TypeError) as e_info:
         Document.from_json(raw_json)
-    assert ('Document.name is expected to be <class \'str\'>, but value True '
-            'with type <class \'bool\'> '
+    assert ("Document.name is expected to be <class 'str'>, but value True "
+            "with type <class 'bool'> "
             'was found instead') == str(e_info.value)
 
 
@@ -173,7 +173,7 @@ def test_that_nested_json_in_lists_with_invalid_keys_throws_exception():
                 '[{"tex": "first paragraph"}]}')
     with pytest.raises(TypeError) as e_info:
         Document.from_json(raw_json)
-    assert (('__init__() got an unexpected keyword argument \'tex\'') ==
+    assert (("__init__() got an unexpected keyword argument 'tex'") ==
             str(e_info.value))
 
 
@@ -181,8 +181,8 @@ def test_that_json_with_wrong_type_in_nested_list_throws_exception():
     raw_json = '{"name": "msa.doc", "paragraphs": [{"text": 0}]}'
     with pytest.raises(TypeError) as e_info:
         Document.from_json(raw_json)
-    assert ('Paragraph.text is expected to be <class \'str\'>, but value 0 '
-            'with type <class \'int\'> '
+    assert ("Paragraph.text is expected to be <class 'str'>, but value 0 "
+            "with type <class 'int'> "
             'was found instead') == str(e_info.value)
 
 
@@ -197,9 +197,9 @@ def test_that_nested_json_that_is_not_in_list_with_wrong_type_throws():
     raw_json = '{"title": "book", "author": {"name": 0}}'
     with pytest.raises(TypeError) as e_info:
         Book.from_json(raw_json)
-    assert (('Book.author is expected to be <class \'test_typed_json_dataclass'
-             '.Author\'>, '
-             'but value {\'name\': 0} is a dict with unexpected keys') ==
+    assert (("Book.author is expected to be <class 'test_typed_json_dataclass"
+             ".Author'>, "
+             "but value {'name': 0} is a dict with unexpected keys") ==
             str(e_info.value))
 
 
@@ -234,7 +234,7 @@ def test_that_lists_with_non_uniform_elements_throws_exception():
     name = {'name': [['str', 0]]}
     with pytest.raises(TypeError) as e_info:
         NestedListWithUniformTypes.from_dict(name)
-    assert ('NestedListWithUniformTypes.name is [[\'str\', 0]] which does not '
+    assert ("NestedListWithUniformTypes.name is [['str', 0]] which does not "
             'match typing.List[typing.List[str]]. '
             'Unfortunately, we are unable to infer the explicit type of '
             'NestedListWithUniformTypes.name') \
@@ -249,7 +249,7 @@ class MissingListType(TypedJsonMixin):
 def test_that_json_with_untyped_list_throws_exception():
     with pytest.raises(TypeError) as e_info:
         MissingListType.from_json('{"some_list": []}')
-    assert ('MissingListType.some_list was defined as a <class \'list\'>, '
+    assert ("MissingListType.some_list was defined as a <class 'list'>, "
             'but is missing information about the type of the elements inside '
             'it') == str(e_info.value)
 
@@ -262,14 +262,14 @@ class UsesNativeList(TypedJsonMixin):
 def test_that_dict_with_wrong_list_throws_exception():
     with pytest.raises(TypeError) as e_info:
         UsesNativeList([])
-    assert ('UsesNativeList.some_list was defined as a <class \'list\'>, '
+    assert ("UsesNativeList.some_list was defined as a <class 'list'>, "
             'but you must use typing.List[type] instead') == str(e_info.value)
 
 
 def test_that_json_with_wrong_list_throws_exception():
     with pytest.raises(TypeError) as e_info:
         UsesNativeList.from_json('{"some_list": []}')
-    assert ('UsesNativeList.some_list was defined as a <class \'list\'>, '
+    assert ("UsesNativeList.some_list was defined as a <class 'list'>, "
             'but you must use typing.List[type] instead') == str(e_info.value)
 
 
@@ -396,8 +396,8 @@ class Node(TypedJsonMixin):
 def test_that_incorrect_recursive_definitions_throws():
     with pytest.raises(TypeError) as e_info:
         Node(next_node='something else')
-    assert ('Node.next_node was defined as a <class \'Node\'>, but we '
-            'found a <class \'str\'> instead') == str(e_info.value)
+    assert ("Node.next_node was defined as a <class 'Node'>, but we "
+            "found a <class 'str'> instead") == str(e_info.value)
 
 
 def test_that_correct_recursive_definitions_is_handled():
@@ -429,9 +429,9 @@ def test_that_recursive_collection_is_handled():
 def test_that_recursive_collection_with_non_matching_types_throws():
     with pytest.raises(TypeError) as e_info:
         GraphNode(children=[GraphNode([]), 'not a GraphNode'])
-    assert ('GraphNode.children is [GraphNode(children=[]), \'not a '
-            'GraphNode\'] which does not match typing.List[ForwardRef'
-            '(\'GraphNode\')]. Unfortunately, we are unable to infer the '
+    assert ("GraphNode.children is [GraphNode(children=[]), 'not a "
+            "GraphNode'] which does not match typing.List[ForwardRef"
+            "('GraphNode')]. Unfortunately, we are unable to infer the "
             'explicit type of GraphNode.children') == str(e_info.value)
 
 
@@ -456,7 +456,7 @@ def test_deeply_nested_forward_references_are_handled():
 def test_deeply_nested_forward_references__with_non_matching_types_throws():
     with pytest.raises(TypeError) as e_info:
         GraphNode(children=[GraphNode(children=[GraphNode(children=['bad'])])])
-    assert ('GraphNode.children is [\'bad\'] which does not match '
-            'typing.List[ForwardRef(\'GraphNode\')]. Unfortunately, we are '
+    assert ("GraphNode.children is ['bad'] which does not match "
+            "typing.List[ForwardRef('GraphNode')]. Unfortunately, we are "
             'unable to infer the explicit type of GraphNode.'
             'children') == str(e_info.value)

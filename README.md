@@ -1,10 +1,11 @@
 # typed_json_dataclass
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4344420de20b4262a4912d81cb28d175)](https://www.codacy.com/app/abatilo/typed-json-dataclass?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=abatilo/typed-json-dataclass&amp;utm_campaign=Badge_Grade)
-[![CircleCI](https://circleci.com/gh/abatilo/typed-json-dataclass.svg?style=svg)](https://circleci.com/gh/abatilo/typed-json-dataclass)
+[![Actions Status](https://wdp9fww0r9.execute-api.us-west-2.amazonaws.com/production/badge/abatilo/typed-json-dataclass?style=flat)](https://wdp9fww0r9.execute-api.us-west-2.amazonaws.com/production/badge/abatilo/typed-json-dataclass?branch=master)
 [![codecov](https://codecov.io/gh/abatilo/typed-json-dataclass/branch/master/graph/badge.svg)](https://codecov.io/gh/abatilo/typed-json-dataclass)
 [![PyPI status](https://img.shields.io/pypi/status/typed_json_dataclass.svg)](https://pypi.python.org/pypi/typed_json_dataclass/)
 [![PyPI version](https://badge.fury.io/py/typed-json-dataclass.svg)](https://badge.fury.io/py/typed-json-dataclass)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/typed-json-dataclass.svg)](https://pypi.python.org/pypi/typed-json-dataclass/)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/typed-json-dataclass.svg)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
 `typed_json_dataclass` is a library that augments the Python3.7
@@ -157,6 +158,10 @@ camel case format, but you want your objects to be snake case and stay PEP8
 compliant.
 
 ## Changelog
+
+1.0.0 - Sat, 2019-06-08
+* No functional changes. But typed_json_dataclass is now being used in a
+  production setting.
 
 0.2.2 - Sun, 2019-06-02
 * Fixes [issue #4](https://github.com/abatilo/typed-json-dataclass/issues/4)
