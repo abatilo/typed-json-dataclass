@@ -39,36 +39,42 @@ this library, to your class definition. This will add 4 new methods to all of yo
 1. from_dict()
 ```python
 @classmethod
-def from_dict(cls, raw_dict):
+def from_dict(cls, raw_dict, *, mapping_mode=MappingMode.NoMap):
     """Given a python dict, create an instance of the implementing class.
 
     :raw_dict: A dictionary that represents the DTO to create
+    :mapping_mode: Format for properties
     :returns: Returns an instance of the DTO, instantiated via the dict
     """
 ```
 2. from_json()
 ```python
 @classmethod
-def from_json(cls, raw_json):
+def from_json(cls, raw_json, *, mapping_mode=MappingMode.NoMap):
     """Given a raw json string, create an instance of the implementing class.
 
     :raw_json: A json string that represents the DTO to create
+    :mapping_mode: Format for properties
     :returns: Returns an instance of the DTO, instantiated via the json
     """
 ```
 3. to_dict()
 ```python
-def to_dict(self, *, keep_none=False):
+def to_dict(self, *, keep_none=False, mapping_mode=MappingMode.NoMap):
     """Express the DTO as a dictionary.
 
+    :keep_none: Filter keys that are None
+    :mapping_mode: Format for properties
     :returns: Returns the instantiated DTO as a dictionary
     """
 ```
 4. to_json()
 ```python
-def to_json(self, *, keep_none=False):
+def to_json(self, *, keep_none=False, mapping_mode=MappingMode.NoMap):
     """Express the DTO as a json string.
 
+    :keep_none: Filter keys that are None
+    :mapping_mode: Format for properties
     :returns: Returns the instantiated DTO as a json string
     """
 ```

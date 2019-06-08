@@ -1,6 +1,6 @@
 workflow "Publish typed_json_dataclass" {
   on = "push"
-  resolves = ["publish"]
+  resolves = ["Publish"]
 }
 
 action "Install" {
@@ -33,7 +33,7 @@ action "Upload codecov" {
   args = ["run codecov -t $CODECOV_TOKEN"]
 }
 
-action "publish" {
+action "Publish" {
   needs = "Upload codecov"
   uses = "abatilo/actions-poetry@master"
   secrets = ["PYPI_USERNAME", "PYPI_PASSWORD"]
