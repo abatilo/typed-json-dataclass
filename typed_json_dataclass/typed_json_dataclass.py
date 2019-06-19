@@ -202,11 +202,12 @@ class TypedJsonMixin:
         else:
             return isinstance(actual_value, expected_type)
 
-    def _contains_non_default_init_vars(self):
+    @classmethod
+    def _contains_non_default_init_vars(cls):
         """Check whether this dataclass contains non-default init-only vars."""
         # The identify check (.. is MISSING) is fine, MISSING is a singleton
         return any(field.type == InitVar and field.default is MISSING
-                   for field in self.__dataclass_fields__.values())
+                   for field in cls.__dataclass_fields__.values())
 
     @classmethod
     def from_dict(cls, raw_dict, *, mapping_mode=MappingMode.NoMap):
@@ -219,6 +220,10 @@ class TypedJsonMixin:
 
         if not isinstance(mapping_mode, MappingMode):
             raise ValueError('Invalid mapping mode')
+
+        if cls._contains_non_default_init_vars():
+            raise TypeError('Cannot instantiate a dataclass with non-default '
+                            'init-only variables')
 
         if mapping_mode == MappingMode.NoMap:
             return cls(**raw_dict)
