@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.7
 import json
 import typing
-from dataclasses import asdict
+from dataclasses import asdict, fields
 from enum import Enum
 
 from typed_json_dataclass.utils import to_camel, to_snake, recursive_rename
@@ -25,7 +25,8 @@ class TypedJsonMixin:
         Based heavily on:
         https://stackoverflow.com/questions/50563546/validating-detailed-types-in-python-dataclasses
         """
-        for field_name, field_def in self.__dataclass_fields__.items():
+        for field_def in fields(self):
+            field_name = field_def.name
             field_value = getattr(self, field_name)
             actual_type = type(field_value)
 
