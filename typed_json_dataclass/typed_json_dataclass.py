@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.7
 import json
 import typing
-from dataclasses import InitVar, MISSING, asdict, fields
+from dataclasses import InitVar, MISSING, asdict, fields, is_dataclass
 from enum import Enum
 from warnings import warn
 
@@ -203,11 +203,30 @@ class TypedJsonMixin:
             return isinstance(actual_value, expected_type)
 
     @classmethod
-    def _contains_non_default_init_vars(cls):
-        """Check whether this dataclass contains non-default init-only vars."""
+    def _contains_non_default_init_vars(cls, previous_classes=None):
+        """Check whether this dataclass contains non-default init-only vars.
+
+        Performs a recursive check through all fields that are declared as
+        dataclasses to ensure that no nested dataclasses contain init-only
+        variables. The ``previous_classes`` argument is a set of previously
+        checked classes to prevent infinite recursion on recursive structures.
+
+        :param previous_classes: The set of previously checked classes.
+        """
+        try:
+            previous_classes.add(cls)
+        except AttributeError:  # NoneType
+            previous_classes = {cls}
+
         # The identify check (.. is MISSING) is fine, MISSING is a singleton
-        return any(field.type == InitVar and field.default is MISSING
-                   for field in cls.__dataclass_fields__.values())
+        has_init_vars = any(field.type == InitVar and field.default is MISSING
+                            for field in cls.__dataclass_fields__.values())
+        children_have_init_vars = any(
+                child.type._contains_non_default_init_vars(previous_classes)
+                for child in fields(cls)
+                if (is_dataclass(child.type)
+                    and child.type not in previous_classes))
+        return has_init_vars or children_have_init_vars
 
     @classmethod
     def from_dict(cls, raw_dict, *, mapping_mode=MappingMode.NoMap):
