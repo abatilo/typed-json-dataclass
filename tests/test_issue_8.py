@@ -1,6 +1,6 @@
 """Tests for https://github.com/abatilo/typed-json-dataclass/issues/8"""
 
-from dataclasses import dataclass, InitVar
+from dataclasses import InitVar, dataclass
 
 import pytest
 
