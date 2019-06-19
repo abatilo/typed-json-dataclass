@@ -1,8 +1,9 @@
 #!/usr/bin/env python3.7
 import json
 import typing
-from dataclasses import asdict, fields
+from dataclasses import InitVar, MISSING, asdict, fields
 from enum import Enum
+from warnings import warn
 
 from typed_json_dataclass.utils import to_camel, to_snake, recursive_rename
 
@@ -201,6 +202,12 @@ class TypedJsonMixin:
         else:
             return isinstance(actual_value, expected_type)
 
+    def _contains_non_default_init_vars(self):
+        """Check whether this dataclass contains non-default init-only vars."""
+        # The identify check (.. is MISSING) is fine, MISSING is a singleton
+        return any(field.type == InitVar and field.default is MISSING
+                   for field in self.__dataclass_fields__.values())
+
     @classmethod
     def from_dict(cls, raw_dict, *, mapping_mode=MappingMode.NoMap):
         """Given a python dict, create an instance of the implementing class.
@@ -232,15 +239,22 @@ class TypedJsonMixin:
 
         return cls.from_dict(json.loads(raw_json), mapping_mode=mapping_mode)
 
-    def to_dict(self, *, keep_none=False, mapping_mode=MappingMode.NoMap):
+    def to_dict(self, *, keep_none=False, mapping_mode=MappingMode.NoMap,
+                warn_on_initvar=True):
         """Express the DTO as a dictionary.
 
         :keep_none: Filter keys that are None
         :mapping_mode: Format for properties
+        :warn_on_initvar: Emit a warning if a dataclass containing non-default
+                          init-only variables is converted.
         :returns: Returns the instantiated DTO as a dictionary
         """
         if not isinstance(mapping_mode, MappingMode):
             raise ValueError('Invalid mapping mode')
+
+        if self._contains_non_default_init_vars() and warn_on_initvar:
+            warn('Dataclasses with init-only variables cannot be '
+                 're-instantiated from a dict or JSON string')
 
         self_dict = None
         mapped_dict = {}
@@ -259,13 +273,17 @@ class TypedJsonMixin:
         mapped_dict = recursive_rename(self_dict, format_method)
         return mapped_dict
 
-    def to_json(self, *, keep_none=False, mapping_mode=MappingMode.NoMap):
+    def to_json(self, *, keep_none=False, mapping_mode=MappingMode.NoMap,
+                warn_on_initvar=True):
         """Express the DTO as a json string.
 
         :keep_none: Filter keys that are None
         :mapping_mode: Format for properties
+        :warn_on_initvar: Emit a warning if a dataclass containing non-default
+                          init-only variables is converted.
         :returns: Returns the instantiated DTO as a json string
         """
         return json.dumps(self.to_dict(
             keep_none=keep_none,
-            mapping_mode=mapping_mode))
+            mapping_mode=mapping_mode,
+            warn_on_initvar=warn_on_initvar))
