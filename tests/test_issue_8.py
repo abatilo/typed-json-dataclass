@@ -73,3 +73,12 @@ def test_that_dataclass_with_init_var_from_dict_leads_to_typeerror() -> None:
 
     with pytest.raises(TypeError, match='init-only variables'):
         DataclassWithInitVar.from_dict(raw_dict)
+
+
+def test_init_var_dc_from_dict_no_error_when_default_value_provided() -> None:
+    raw_dict = {'a': 3, 'b': 'f'}
+
+    result = DataclassWithDefaultInitVar.from_dict(raw_dict)
+
+    assert result.a == 3
+    assert result.b == 'f'
