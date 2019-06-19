@@ -250,8 +250,8 @@ class TypedJsonMixin:
 
         :keep_none: Filter keys that are None
         :mapping_mode: Format for properties
-        :warn_on_initvar: Emit a warning if a dataclass containing non-default
-                          init-only variables is converted.
+        :warn_on_initvar: Emit a warning if the instance contains non-default
+                          init-only variables.
         :returns: Returns the instantiated DTO as a dictionary
         """
         if not isinstance(mapping_mode, MappingMode):
@@ -284,8 +284,8 @@ class TypedJsonMixin:
 
         :keep_none: Filter keys that are None
         :mapping_mode: Format for properties
-        :warn_on_initvar: Emit a warning if a dataclass containing non-default
-                          init-only variables is converted.
+        :warn_on_initvar: Emit a warning if the instance contains non-default
+                          init-only variables.
         :returns: Returns the instantiated DTO as a json string
         """
         return json.dumps(self.to_dict(

@@ -60,21 +60,25 @@ def from_json(cls, raw_json, *, mapping_mode=MappingMode.NoMap):
 ```
 3. to_dict()
 ```python
-def to_dict(self, *, keep_none=False, mapping_mode=MappingMode.NoMap):
+def to_dict(self, *, keep_none=False, mapping_mode=MappingMode.NoMap, warn_on_initvar=True):
     """Express the DTO as a dictionary.
 
     :keep_none: Filter keys that are None
     :mapping_mode: Format for properties
+    :warn_on_initvar: Emit a warning if the instance contains non-default
+                      init-only variables.
     :returns: Returns the instantiated DTO as a dictionary
     """
 ```
 4. to_json()
 ```python
-def to_json(self, *, keep_none=False, mapping_mode=MappingMode.NoMap):
+def to_json(self, *, keep_none=False, mapping_mode=MappingMode.NoMap, warn_on_initvar=True):
     """Express the DTO as a json string.
 
     :keep_none: Filter keys that are None
     :mapping_mode: Format for properties
+    :warn_on_initvar: Emit a warning if the instance contains non-default
+                      init-only variables.
     :returns: Returns the instantiated DTO as a json string
     """
 ```
@@ -162,6 +166,60 @@ alice = Person.from_dict(request_data_as_dict, mapping_mode=MappingMode.SnakeCas
 This mapping mode is useful for when you get requests that have the JSON in a
 camel case format, but you want your objects to be snake case and stay PEP8
 compliant.
+
+## Limitations and Caveats
+
+### Dataclasses with init-only variables
+
+Support for dataclasses with [init-only variables](https://docs.python.org/3/library/dataclasses.html#init-only-variables)
+is limited. Although `to_dict` and `to_json` will convert the dataclass, the
+resulting dict or JSON string will not contain the init-only variables, since
+their values are not available after initialization. This also means that such
+dataclasses cannot later be instantiated from a dict or JSON string, since the
+init-only variables are a required parameter in the dataclass' `__init__`
+method. `TypedJsonMixin` detects the usage of dataclasses with init-only
+variables, emits a warning when it is converted to a dict or JSON string, and
+refuses to instantiate a dataclass with init-only variables.
+
+A first workaround consists of providing a default value to the init-only
+variables:
+
+```python
+@dataclass
+class Person(TypedJsonMixin):
+    person_name: InitVar[str] = ''
+    person_first_name: str = ''
+    person_last_name: str = ''
+
+    def __post_init__(self, person_name):
+        if person_name:
+            # Instantiated directly
+            self.person_first_name, self.person_last_name = person_name.split()
+        # Call TypedJsonMixin __post_init__ method
+        super().__post_init__()
+```
+**Note**: Instantiations without arguments, such as `Person()`, are now
+possible, although the created instance would then be invalid.
+
+The second workaround is to remove init-only variables from the dataclass, and
+perform the `__post_init__` instantiation using a class method instead:
+
+```python
+@dataclass
+class Person(TypedJsonMixin):
+    person_first_name: str
+    person_last_name: str
+
+    @classmethod
+    def create(cls, person_name):
+        first_name, last_name = person_name.split()
+        cls(first_name, last_name)
+```
+
+Finally, if the dataclass is not meant to ever be instantiated from a dict or
+JSON string, and only the `to_dict` or `to_json` methods are called, the
+warnings can be suppressed by passing `warn_on_initvar=False` as a keyword
+argument in the method call.
 
 ## Changelog
 
