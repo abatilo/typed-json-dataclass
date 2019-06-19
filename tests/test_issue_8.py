@@ -6,6 +6,7 @@ import pytest
 
 from typed_json_dataclass import TypedJsonMixin
 
+
 @dataclass
 class DataclassWithInitVar(TypedJsonMixin):
     init: InitVar[str]
@@ -127,3 +128,31 @@ def test_init_var_dc_from_json_no_error_when_default_value_provided() -> None:
 
     assert result.a == 3
     assert result.b == 'f'
+
+
+@dataclass
+class DataclassWithNestedInitVar(TypedJsonMixin):
+    child_dc: DataclassWithInitVar
+
+
+@dataclass
+class DataclassWithVeryNestedInitVar(TypedJsonMixin):
+    child_dc: DataclassWithNestedInitVar
+
+
+@dataclass
+class DataclassWithoutInitVar(TypedJsonMixin):
+    a: int
+    b: str
+
+
+@pytest.mark.parametrize('cls', [
+        DataclassWithInitVar,
+        DataclassWithNestedInitVar,
+        DataclassWithVeryNestedInitVar])
+def test_dc_with_init_var_in_child_should_contain_init_var(cls) -> None:
+    assert cls._contains_non_default_init_vars()
+
+
+def test_dc_without_init_var_should_not_contain_init_var() -> None:
+    assert not DataclassWithoutInitVar._contains_non_default_init_vars()
