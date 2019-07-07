@@ -3,6 +3,11 @@ workflow "Publish typed_json_dataclass" {
   resolves = ["Publish"]
 }
 
+workflow "PR Builder" {
+  on = "pull_request"
+  resolves = ["Run flake8", "Run pytest"]
+}
+
 action "Install" {
   uses = "abatilo/actions-poetry@master"
   args = ["install"]
