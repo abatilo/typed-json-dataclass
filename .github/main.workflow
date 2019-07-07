@@ -22,7 +22,8 @@ action "Install" {
 action "Run flake8" {
   needs = "Install"
   uses = "abatilo/actions-poetry@master"
-  args = ["run", "python", "-m", "flake8", "--show-source", "--import-order-style", "pep8"]
+  args = ["run", "python", "-m", "flake8", "--show-source", "--import-order-style",
+  "pep8", "typed_json_dataclass", "tests"]
 }
 
 action "Run pytest" {
