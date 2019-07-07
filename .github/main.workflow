@@ -5,7 +5,7 @@ workflow "Publish typed_json_dataclass" {
 
 workflow "PR Builder" {
   on = "pull_request"
-  resolves = ["Run flake8", "Run pytest"]
+  resolves = ["Run flake8", "Run pytest", "Run commitlint"]
 }
 
 action "Install" {
@@ -43,4 +43,9 @@ action "Publish" {
   uses = "abatilo/actions-poetry@master"
   secrets = ["PYPI_USERNAME", "PYPI_PASSWORD"]
   args = ["publish", "--build", "--no-interaction", "-vv", "--username", "$PYPI_USERNAME", "--password", "$PYPI_PASSWORD"]
+}
+
+action "Run commitlint" {
+  uses = "./actions/make"
+  args = "commitlint"
 }
