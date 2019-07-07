@@ -223,6 +223,9 @@ argument in the method call.
 
 ## Changelog
 
+1.1.0 - Sun, 2019-07-07
+* Handle init-only variables more elegantly
+
 1.0.0 - Sat, 2019-06-08
 * No functional changes. But typed_json_dataclass is now being used in a
   production setting.
