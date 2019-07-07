@@ -10,7 +10,7 @@ If this change relates to a specific issue, please mention it here.
 
 ## Types of changes
 
-What types of changes does your code introduce to sanic-swagger?
+What types of changes does your code introduce to typed-json-dataclass?
 _Put an `x` in the boxes that apply_
 
 - [ ] Bugfix (non-breaking change which fixes an issue)
@@ -25,13 +25,11 @@ the PR. If you're unsure about any of them, don't hesitate to ask. We're here
 to help! This is simply a reminder of what we are going to look for before
 merging your code._
 
-- [ ] gitlint passes, and my commit messages follow [best practice](https://chris.beams.io/posts/git-commit/)
 - [ ] flake8 passes locally with my changes
-- [ ] pytest passes locally with my changes, with minimum of 90% code coverage
+- [ ] pytest passes locally with my changes, with 100% code coverage
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] I have added necessary documentation (if appropriate)
-- [ ] I have updated the version numbers referenced in `setup.py` and
-  `sanic_swagger/__init__.py`
+- [ ] I have updated the version numbers referenced in pyproject.toml
 - [ ] Any dependent changes have been merged and published in downstream modules
 
 ## Further comments
