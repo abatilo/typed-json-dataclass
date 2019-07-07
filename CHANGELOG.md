@@ -2,9 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
----
-All notes from below this line were manually written and were used before we setup
-automated changelog generation.
+## 1.2.0 (2019-07-07)
+
+
+### Features
+
+* generate changelog automatically ([#13](https://github.com/abatilo/typed-json-dataclass/issues/13)) ([577e467](https://github.com/abatilo/typed-json-dataclass/commit/577e467))
+
+
 
 ### 1.1.0 - Sun, 2019-07-07
 * Handle init-only variables more elegantly
