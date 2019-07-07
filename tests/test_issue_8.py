@@ -3,7 +3,6 @@
 from dataclasses import InitVar, dataclass
 
 import pytest
-
 from typed_json_dataclass import TypedJsonMixin
 
 
