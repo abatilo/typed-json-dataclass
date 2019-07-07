@@ -15,3 +15,21 @@ commitlint: build ## Verify that commits conform to our standard
 	docker run \
 		$(CONTAINER_NAME) \
 		npm run commitlint
+
+.PHONY: version
+version: build commitlint ## Update our changelog
+	docker run \
+		--mount type=bind,src=`pwd`/.git,dst=/src/.git -w /src \
+		--mount type=bind,src=`pwd`/package.json,dst=/src/package.json -w /src \
+		--mount type=bind,src=`pwd`/CHANGELOG.md,dst=/src/CHANGELOG.md -w /src \
+		$(CONTAINER_NAME) \
+		npm run version
+
+.PHONY: unreleased
+unreleased: build commitlint ## View unreleased changes
+	docker run \
+		--mount type=bind,src=`pwd`/.git,dst=/src/.git,readonly -w /src \
+		--mount type=bind,src=`pwd`/package.json,dst=/src/package.json,readonly -w /src \
+		--mount type=bind,src=`pwd`/CHANGELOG.md,dst=/src/CHANGELOG.md,readonly -w /src \
+		$(CONTAINER_NAME) \
+		npm run unreleased
