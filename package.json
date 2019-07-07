@@ -16,7 +16,7 @@
     "standard-version": "^6.0.1"
   },
   "scripts": {
-    "commitlint": "commitlint --from 15d4dbcf1c0022f513e66565d99b819061d2cb02",
+    "commitlint": "commitlint --from 023975f159d63895c1d9d1f2b74e751ed9813f88",
     "version": "standard-version",
     "unreleased": "standard-version --dry-run"
   },

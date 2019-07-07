@@ -18,6 +18,9 @@ _Put an `x` in the boxes that apply_
 - [ ] Breaking change (fix or feature that would cause existing functionality
   to not work as expected)
 
+If there isn't an issue created for this already, please create one and link it here:
+Fixes #
+
 ## Checklist
 
 _Put an `x` in the boxes that apply. You can also fill these out after creating
@@ -29,7 +32,6 @@ merging your code._
 - [ ] pytest passes locally with my changes, with 100% code coverage
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] I have added necessary documentation (if appropriate)
-- [ ] I have updated the version numbers referenced in pyproject.toml
 - [ ] Any dependent changes have been merged and published in downstream modules
 
 ## Further comments
