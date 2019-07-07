@@ -21,6 +21,7 @@ version: build commitlint ## Update our changelog
 	docker run \
 		--mount type=bind,src=`pwd`/.git,dst=/src/.git -w /src \
 		--mount type=bind,src=`pwd`/package.json,dst=/src/package.json -w /src \
+		--mount type=bind,src=`pwd`/package-lock.json,dst=/src/package-lock.json -w /src \
 		--mount type=bind,src=`pwd`/CHANGELOG.md,dst=/src/CHANGELOG.md -w /src \
 		$(CONTAINER_NAME) \
 		npm run version
@@ -30,6 +31,7 @@ unreleased: build commitlint ## View unreleased changes
 	docker run \
 		--mount type=bind,src=`pwd`/.git,dst=/src/.git,readonly -w /src \
 		--mount type=bind,src=`pwd`/package.json,dst=/src/package.json,readonly -w /src \
+		--mount type=bind,src=`pwd`/package-lock.json,dst=/src/package-lock.json,readonly -w /src \
 		--mount type=bind,src=`pwd`/CHANGELOG.md,dst=/src/CHANGELOG.md,readonly -w /src \
 		$(CONTAINER_NAME) \
 		npm run unreleased
