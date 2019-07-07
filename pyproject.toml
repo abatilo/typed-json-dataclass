@@ -4,7 +4,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "typed-json-dataclass"
-version = "1.1.0"
+version = "1.2.0"
 description = "Make your dataclasses automatically validate their types"
 authors = [ "Aaron <AaronBatilo@gmail.com>",]
 license = "MIT"

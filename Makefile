@@ -1,6 +1,7 @@
 SHELL := /bin/bash
 
 CONTAINER_NAME = versioner
+SYNCER_NAME = syncer
 
 .PHONY: help
 help: ## View help information
@@ -10,14 +11,19 @@ help: ## View help information
 build: ## Build the container to run our commands within a container
 	docker build -t $(CONTAINER_NAME) -f ./Dockerfile .
 
+.PHONY: build_syncer
+build_syncer: ## Build the container that keeps our versions in sync
+	docker build -t $(SYNCER_NAME) -f ./actions/version_syncer/Dockerfile \
+		./actions/version_syncer/
+
 .PHONY: commitlint
 commitlint: build ## Verify that commits conform to our standard
 	docker run \
 		$(CONTAINER_NAME) \
 		npm run commitlint
 
-.PHONY: version
-version: build commitlint ## Update our changelog
+.PHONY: bump
+bump: build commitlint ## Update our changelog
 	docker run \
 		--mount type=bind,src=`pwd`/.git,dst=/src/.git -w /src \
 		--mount type=bind,src=`pwd`/package.json,dst=/src/package.json -w /src \
@@ -25,6 +31,18 @@ version: build commitlint ## Update our changelog
 		--mount type=bind,src=`pwd`/CHANGELOG.md,dst=/src/CHANGELOG.md -w /src \
 		$(CONTAINER_NAME) \
 		npm run version
+
+.PHONY: sync
+sync: build_syncer ## Sync versions between package.json and pyproject.toml
+	docker run \
+		--mount type=bind,src=`pwd`/package.json,dst=/package.json \
+		--mount type=bind,src=`pwd`/pyproject.toml,dst=/pyproject.toml \
+		$(SYNCER_NAME) /package.json /pyproject.toml
+	git add pyproject.toml
+	git commit -m "Sync versions across files"
+
+.PHONY: version ## Update versions for packages
+version: bump sync
 
 .PHONY: unreleased
 unreleased: build commitlint ## View unreleased changes
