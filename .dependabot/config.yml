@@ -1,0 +1,14 @@
+version: 1
+update_configs:
+  - package_manager: "python"
+    directory: "/"
+    update_schedule: "live"
+  - package_manager: "javascript"
+    directory: "/"
+    update_schedule: "live"
+  - package_manager: "docker"
+    directory: "/actions/make"
+    update_schedule: "daily"
+  - package_manager: "docker"
+    directory: "/actions/version_syncer"
+    update_schedule: "daily"
