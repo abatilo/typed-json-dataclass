@@ -3,15 +3,25 @@ update_configs:
   - package_manager: "python"
     directory: "/"
     update_schedule: "live"
+    commit_message:
+      prefix: "chore"
+      include_scope: true
   - package_manager: "javascript"
     directory: "/"
     update_schedule: "live"
+    commit_message:
+      prefix: "chore"
+      include_scope: true
   - package_manager: "docker"
     directory: "/actions/make"
     update_schedule: "daily"
+    commit_message:
+      prefix: "chore"
+      include_scope: true
   - package_manager: "docker"
     directory: "/actions/version_syncer"
     update_schedule: "daily"
-  commit_message:
-    prefix: "chore"
-    include_scope: true
+    commit_message:
+      prefix: "chore"
+      include_scope: true
+
