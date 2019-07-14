@@ -1,6 +1,6 @@
 {
   "name": "typed-json-dataclass",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Make your dataclasses automatically validate their types",
   "directories": {
     "test": "tests"
@@ -35,13 +35,16 @@
       "@commitlint/config-conventional"
     ],
     "rules": {
-      "header-max-length": [2, "always", 100],
+      "header-max-length": [
+        2,
+        "always",
+        100
+      ],
       "subject-case": [
         2,
         "never",
         []
       ]
     }
-
   }
 }
