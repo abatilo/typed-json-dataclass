@@ -39,7 +39,7 @@ sync: build_syncer ## Sync versions between package.json and pyproject.toml
 		--mount type=bind,src=`pwd`/pyproject.toml,dst=/pyproject.toml \
 		$(SYNCER_NAME) /package.json /pyproject.toml
 	git add pyproject.toml
-	git commit -m "Sync versions across files"
+	git commit -m "chore: sync package.json version to pyproject.toml version"
 
 .PHONY: version ## Update versions for packages
 version: bump sync
