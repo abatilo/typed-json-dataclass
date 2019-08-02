@@ -1,11 +1,6 @@
-workflow "Publish typed_json_dataclass" {
+workflow "Build" {
   on = "push"
-  resolves = ["Publish"]
-}
-
-workflow "PR Builder" {
-  on = "pull_request"
-  resolves = ["Run commitlint", "Run flake8", "Run pytest"]
+  resolves = ["Run commitlint", "Run flake8", "Run pytest", "Publish"]
 }
 
 action "Run commitlint" {
