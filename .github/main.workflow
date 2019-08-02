@@ -1,11 +1,6 @@
-workflow "Build" {
+workflow "Publish typed_json_dataclass" {
   on = "push"
-  resolves = ["Run commitlint", "Run flake8", "Run pytest", "Publish"]
-}
-
-action "Run commitlint" {
-  uses = "./actions/make"
-  args = "commitlint"
+  resolves = ["Publish"]
 }
 
 action "Install" {
@@ -16,8 +11,7 @@ action "Install" {
 action "Run flake8" {
   needs = "Install"
   uses = "abatilo/actions-poetry@master"
-  args = ["run", "python", "-m", "flake8", "--show-source", "--import-order-style",
-  "pep8", "typed_json_dataclass", "tests"]
+  args = ["run", "python", "-m", "flake8", "--show-source", "--import-order-style", "pep8"]
 }
 
 action "Run pytest" {
@@ -27,6 +21,7 @@ action "Run pytest" {
 }
 
 action "Master branch" {
+  needs = ["Run pytest", "Run flake8"]
   uses = "actions/bin/filter@master"
   args = "branch master"
 }
@@ -39,7 +34,7 @@ action "Upload codecov" {
 }
 
 action "Publish" {
-  needs = ["Master branch", "Upload codecov"]
+  needs = "Upload codecov"
   uses = "abatilo/actions-poetry@master"
   secrets = ["PYPI_USERNAME", "PYPI_PASSWORD"]
   args = ["publish", "--build", "--no-interaction", "-vv", "--username", "$PYPI_USERNAME", "--password", "$PYPI_PASSWORD"]
