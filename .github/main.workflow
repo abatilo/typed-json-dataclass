@@ -14,7 +14,6 @@ action "Run commitlint" {
 }
 
 action "Install" {
-  needs = "Run commitlint"
   uses = "abatilo/actions-poetry@master"
   args = ["install"]
 }
@@ -33,7 +32,6 @@ action "Run pytest" {
 }
 
 action "Master branch" {
-  needs = ["Run pytest", "Run flake8"]
   uses = "actions/bin/filter@master"
   args = "branch master"
 }
@@ -46,7 +44,7 @@ action "Upload codecov" {
 }
 
 action "Publish" {
-  needs = "Upload codecov"
+  needs = ["Master branch", "Upload codecov", "Run commitlint", "Run pytest", "Run flake8"]
   uses = "abatilo/actions-poetry@master"
   secrets = ["PYPI_USERNAME", "PYPI_PASSWORD"]
   args = ["publish", "--build", "--no-interaction", "-vv", "--username", "$PYPI_USERNAME", "--password", "$PYPI_PASSWORD"]
