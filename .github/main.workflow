@@ -44,7 +44,7 @@ action "Upload codecov" {
 }
 
 action "Publish" {
-  needs = ["Master branch", "Upload codecov", "Run commitlint", "Run pytest", "Run flake8"]
+  needs = ["Master branch", "Upload codecov"]
   uses = "abatilo/actions-poetry@master"
   secrets = ["PYPI_USERNAME", "PYPI_PASSWORD"]
   args = ["publish", "--build", "--no-interaction", "-vv", "--username", "$PYPI_USERNAME", "--password", "$PYPI_PASSWORD"]
