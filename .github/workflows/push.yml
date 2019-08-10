@@ -40,6 +40,10 @@ jobs:
     needs: [flake8, pytest]
     steps:
     - uses: actions/checkout@master
+    - name: Install
+      uses: abatilo/actions-poetry@master
+      with:
+        args: install
     - name: Upload codecov
       uses: abatilo/actions-poetry@master
       env:
