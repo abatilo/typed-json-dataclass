@@ -1,0 +1,55 @@
+on:
+  push:
+    branch:
+      - master
+
+name: Publish typed_json_dataclass
+jobs:
+  flake8:
+    name: flake8
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install
+      uses: abatilo/actions-poetry@master
+      with:
+        args: install
+    - name: Run flake8
+      uses: abatilo/actions-poetry@master
+      with:
+        args: run python -m flake8 --show-source --import-order-style pep8 typed_json_dataclass
+          tests
+  pytest:
+    name: pytest
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install
+      uses: abatilo/actions-poetry@master
+      with:
+        args: install
+    - name: Run pytest
+      uses: abatilo/actions-poetry@master
+      with:
+        args: run python -m pytest --cov-report xml:codecov.xml --cov=typed_json_dataclass
+          --cov-report=html --junit-xml=coverage.xml --cov-branch --cov-fail-under=100
+          tests/
+  publish:
+    name: publish
+    runs-on: ubuntu-latest
+    needs: [flake8, pytest]
+    steps:
+    - name: Upload codecov
+      uses: abatilo/actions-poetry@master
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      with:
+        args: run codecov -t $CODECOV_TOKEN
+    - name: Publish
+      uses: abatilo/actions-poetry@master
+      env:
+        PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
+      with:
+        args: publish --build --no-interaction -vv --username $PYPI_USERNAME --password
+          $PYPI_PASSWORD
