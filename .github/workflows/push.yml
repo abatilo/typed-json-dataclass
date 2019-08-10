@@ -45,7 +45,7 @@ jobs:
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       with:
-        args: run codecov -t $CODECOV_TOKEN
+        args: '"run codecov -t $CODECOV_TOKEN"'
     - name: Publish
       uses: abatilo/actions-poetry@master
       env:
