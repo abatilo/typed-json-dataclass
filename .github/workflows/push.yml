@@ -39,6 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [flake8, pytest]
     steps:
+    - uses: actions/checkout@master
     - name: Upload codecov
       uses: abatilo/actions-poetry@master
       env:
