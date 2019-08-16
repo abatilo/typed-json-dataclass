@@ -1,6 +1,6 @@
 on:
   push:
-    branch:
+    branches:
       - master
 
 name: Publish typed_json_dataclass
