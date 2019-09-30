@@ -25,7 +25,7 @@ your Python code.
 This library can be thought of as a combination of
 [attrs](https://github.com/python-attrs/attrs),
 [cattrs](https://github.com/Tinche/cattrs), and
-[marshamllow](https://github.com/marshmallow-code/marshmallow)
+[marshmallow](https://github.com/marshmallow-code/marshmallow)
 
 ## Getting Started
 
