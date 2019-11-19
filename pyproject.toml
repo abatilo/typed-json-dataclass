@@ -9,8 +9,8 @@ description = "Make your dataclasses automatically validate their types"
 authors = [ "Aaron <AaronBatilo@gmail.com>",]
 license = "MIT"
 readme = "README.md"
-homepage = "http://github.com/abatilo/typed_json_dataclass"
-repository = "http://github.com/abatilo/typed_json_dataclass"
+homepage = "http://github.com/abatilo/typed-json-dataclass"
+repository = "http://github.com/abatilo/typed-json-dataclass"
 keywords = [ "dataclasses", "dataclass", "json", "mypy", "pyre", "marshmallow", "attrs", "cattrs",]
 classifiers = [ "Intended Audience :: Developers", "Development Status :: 5 - Production/Stable", "Topic :: Software Development :: Libraries :: Python Modules", "Environment :: Web Environment", "License :: OSI Approved :: MIT License", "Programming Language :: Python :: 3.7",]
 
