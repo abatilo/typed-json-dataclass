@@ -11,12 +11,16 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Install
-      uses: abatilo/actions-poetry@master
+      uses: abatilo/actions-poetry@v1.1.0
       with:
+        python_version: 3.7.0
+        poetry_version: 0.12.17
         args: install
     - name: Run flake8
-      uses: abatilo/actions-poetry@master
+      uses: abatilo/actions-poetry@v1.1.0
       with:
+        python_version: 3.7.0
+        poetry_version: 0.12.17
         args: run python -m flake8 --show-source --import-order-style pep8 typed_json_dataclass
           tests
   pytest:
