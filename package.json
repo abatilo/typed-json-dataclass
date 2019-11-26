@@ -8,7 +8,7 @@
   "dependencies": {
     "auto-changelog": "^1.16.2",
     "conventional-changelog": "^3.1.15",
-    "conventional-changelog-cli": "^2.0.25"
+    "conventional-changelog-cli": "^2.0.28"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
