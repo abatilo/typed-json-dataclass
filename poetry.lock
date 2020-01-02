@@ -109,8 +109,8 @@ category = "dev"
 description = "A plugin for flake8 finding likely bugs and design problems in your program. Contains warnings that don't belong in pyflakes and pycodestyle."
 name = "flake8-bugbear"
 optional = false
-python-versions = ">=3.5"
-version = "19.8.0"
+python-versions = ">=3.6"
+version = "20.1.0"
 
 [package.dependencies]
 attrs = "*"
@@ -403,7 +403,7 @@ python-versions = ">=2.7"
 version = "0.5.1"
 
 [metadata]
-content-hash = "bf0bc797f48a44323501105e0b0d50387290e2cdf0ad5dc7937e51f0159ca00c"
+content-hash = "cda59024814166891dc8e4a977f21300ec9a1c7da65c756efe2b7a130f62d39d"
 python-versions = "^3.7"
 
 [metadata.hashes]
@@ -418,7 +418,7 @@ entrypoints = ["589f874b313739ad35be6e0cd7efde2a4e9b6fea91edcc34e58ecbb8dbe56d19
 flake8 = ["45681a117ecc81e870cbf1262835ae4af5e7a8b08e40b944a8a6e6b895914cfb", "49356e766643ad15072a789a20915d3c91dc89fd313ccd71802303fd67e4deca"]
 flake8-alfred = ["3cce4a91fe07b50b5efcb650f5f13901052b64c3850f9cf10cce330efab6b34d", "c68b40165b00d3c9f0da6e64f08e95da919fc358dc8b8596374f54fa63cd6be5"]
 flake8-blind-except = ["0d7d1adb4cabf2268d6eebb815a7a5014bcb7e8419f7a74339c46d0b8847b858", "aca3356633825544cec51997260fe31a8f24a1a2795ce8e81696b9916745e599"]
-flake8-bugbear = ["d8c466ea79d5020cb20bf9f11cf349026e09517a42264f313d3f6fddb83e0571", "ded4d282778969b5ab5530ceba7aa1a9f1b86fa7618fc96a19a1d512331640f8"]
+flake8-bugbear = ["1bb5683b74ab86084c856153804fd7066e9d409fb507efaad6adedc1ff052de5", "775aa4cbff549d0e6a2e80c323297dc348f077186bfd556afe2354fffcac5c86"]
 flake8-builtins = ["29bc0f7e68af481d088f5c96f8aeb02520abdfc900500484e3af969f42a38a5f", "c44415fb19162ef3737056e700d5b99d48c3612a533943b4e16419a5d3de3a64"]
 flake8-class-newline = ["130a6991e8c58ec9a6380d273e449e61bcd974b446c97f1e16493f6350fa8d35", "44e77747396c7586bbfe7814df9caf17d92000cb70a5ef9df5d721c934c6db33", "514c4923c88eb8b3dd52db4b55b8d3483520db89db80af6ba812a4af15421ff1"]
 flake8-comprehensions = ["6de428c3ac67d3614d527456469c8a3d6638960e9ad7e1222358526a2507400a", "e3a8350a35d7bc71f8a1f64cf3c633a418a26b0edace2219d26ea4dd78ac21f3"]
