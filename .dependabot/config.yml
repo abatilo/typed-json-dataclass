@@ -40,3 +40,13 @@ update_configs:
       - match:
           dependency_type: "all"
           update_type: "all"
+  - package_manager: "github_actions"
+    directory: "/.github/workflows"
+    update_schedule: "daily"
+    commit_message:
+      prefix: "chore"
+      include_scope: true
+    automerged_updates:
+      - match:
+          dependency_type: "all"
+          update_type: "all"
