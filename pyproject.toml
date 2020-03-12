@@ -20,7 +20,7 @@ flake8-tuple = "^0.4.0"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.7"
-pytest = "^5.3"
+pytest = "^5.4"
 coverage = "^5.0"
 flake8-quotes = "^2.1"
 flake8-deprecated = "^1.3"
