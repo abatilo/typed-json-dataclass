@@ -122,7 +122,7 @@ description = "Check for python builtins being used as variables or parameters."
 name = "flake8-builtins"
 optional = false
 python-versions = "*"
-version = "1.5.1"
+version = "1.5.2"
 
 [package.dependencies]
 flake8 = "*"
@@ -419,7 +419,7 @@ flake8 = ["45681a117ecc81e870cbf1262835ae4af5e7a8b08e40b944a8a6e6b895914cfb", "4
 flake8-alfred = ["3cce4a91fe07b50b5efcb650f5f13901052b64c3850f9cf10cce330efab6b34d", "c68b40165b00d3c9f0da6e64f08e95da919fc358dc8b8596374f54fa63cd6be5"]
 flake8-blind-except = ["0d7d1adb4cabf2268d6eebb815a7a5014bcb7e8419f7a74339c46d0b8847b858", "aca3356633825544cec51997260fe31a8f24a1a2795ce8e81696b9916745e599"]
 flake8-bugbear = ["a3ddc03ec28ba2296fc6f89444d1c946a6b76460f859795b35b77d4920a51b63", "bd02e4b009fb153fe6072c31c52aeab5b133d508095befb2ffcf3b41c4823162"]
-flake8-builtins = ["8f65d8fe200712bd81a1d5095c868a2b899c032753a86498643697e9b1db5ef9", "d76f1ad1badf4478f2b288e34da9712c714262fa4c831785e807efd162efe1cc"]
+flake8-builtins = ["a0296d23da92a6f2494243b9f2039bfdb73f34aba20054c1b70b2a60c84745bb", "fe7be13fe51bfb06bdae6096c6488e328c822c3aa080e24b91b77116a4fbb8b0"]
 flake8-class-newline = ["130a6991e8c58ec9a6380d273e449e61bcd974b446c97f1e16493f6350fa8d35", "44e77747396c7586bbfe7814df9caf17d92000cb70a5ef9df5d721c934c6db33", "514c4923c88eb8b3dd52db4b55b8d3483520db89db80af6ba812a4af15421ff1"]
 flake8-comprehensions = ["d08323aa801aef33477cd33f2f5ce3acb1aafd26803ab0d171d85d514c1273a2", "e7db586bb6eb95afdfd87ed244c90e57ae1352db8ef0ad3012fca0200421e5df"]
 flake8-deprecated = ["211951854837ced9ec997a75c6e5b957f3536a735538ee0620b76539fd3706cd", "9fa5a0c5c81fb3b34c53a0e4f16cd3f0a3395078cfd4988011cbab5fb0afa7f7"]
