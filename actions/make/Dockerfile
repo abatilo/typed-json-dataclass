@@ -1,4 +1,4 @@
-FROM docker:19.03.10
+FROM docker:19.03.11
 LABEL "com.github.actions.name"="Makefile runner"
 LABEL "com.github.actions.description"="A docker base image that can run make"
 LABEL "com.github.actions.icon"="code"
