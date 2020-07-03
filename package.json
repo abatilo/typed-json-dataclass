@@ -6,7 +6,7 @@
     "test": "tests"
   },
   "dependencies": {
-    "auto-changelog": "^2.1.0",
+    "auto-changelog": "^2.2.0",
     "conventional-changelog": "^3.1.21",
     "conventional-changelog-cli": "^2.0.34"
   },
