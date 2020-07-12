@@ -13,7 +13,7 @@
   "devDependencies": {
     "@commitlint/cli": "^9.0.1",
     "@commitlint/config-conventional": "^9.0.1",
-    "standard-version": "^8.0.0"
+    "standard-version": "^8.0.1"
   },
   "scripts": {
     "commitlint": "commitlint --from eae67ea6306dd2924279f492220fcc8b1bb16415",
