@@ -11,7 +11,7 @@
     "conventional-changelog-cli": "^2.0.34"
   },
   "devDependencies": {
-    "@commitlint/cli": "^9.0.1",
+    "@commitlint/cli": "^9.1.1",
     "@commitlint/config-conventional": "^9.0.1",
     "standard-version": "^8.0.1"
   },
