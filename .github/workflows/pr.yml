@@ -18,7 +18,8 @@ jobs:
           ref: master
       - name: Run tests
         run: |
-          entrypoint.sh version
+          ls
+          pwd
       - run: |
           poetry run python -m flake8 --show-source --import-order-style pep8 typed_json_dataclass
           tests
