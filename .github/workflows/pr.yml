@@ -8,7 +8,7 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     container:
-      image: abatilo/actions-poetry
+      image: ./
       env:
         INPUT_PYTHON_VERSION: 3.7
         INPUT_POETRY_VERSION: 1.0
