@@ -6,6 +6,7 @@ on:
 name: Publish typed_json_dataclass
 jobs:
   ci:
+    runs-on: ubuntu-latest
     container:
       image: abatilo/actions-poetry
       env:
