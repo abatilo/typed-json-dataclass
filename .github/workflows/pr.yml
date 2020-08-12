@@ -12,6 +12,7 @@ jobs:
       env:
         INPUT_PYTHON_VERSION: 3.7
         INPUT_POETRY_VERSION: 1.0
+      options: "--entrypoint entrypoint.sh"
     steps:
       - uses: actions/checkout@v2
         with:
