@@ -5,40 +5,22 @@ on:
 
 name: Publish typed_json_dataclass
 jobs:
-  flake8:
-    name: flake8
-    runs-on: ubuntu-latest
+  ci:
+    container:
+      image: abatilo/actions-poetry
+      env:
+        INPUT_PYTHON_VERSION: 3.7
+        INPUT_POETRY_VERSION: 1.0
     steps:
-    - uses: actions/checkout@master
-    - name: Install
-      uses: abatilo/actions-poetry@v1.1.0
-      with:
-        python_version: 3.7.0
-        poetry_version: 0.12.17
-        args: install
-    - name: Run flake8
-      uses: abatilo/actions-poetry@v1.1.0
-      with:
-        python_version: 3.7.0
-        poetry_version: 0.12.17
-        args: run python -m flake8 --show-source --import-order-style pep8 typed_json_dataclass
+      - uses: actions/checkout@v2
+        with:
+          ref: master
+      - name: Run tests
+        run: |
+          entrypoint.sh version
+      - run: |
+          poetry run python -m flake8 --show-source --import-order-style pep8 typed_json_dataclass
           tests
-  pytest:
-    name: pytest
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    - name: Install
-      uses: abatilo/actions-poetry@v1.1.0
-      with:
-        python_version: 3.7.0
-        poetry_version: 0.12.17
-        args: install
-    - name: Run pytest
-      uses: abatilo/actions-poetry@v1.1.0
-      with:
-        python_version: 3.7.0
-        poetry_version: 0.12.17
-        args: run python -m pytest --cov-report xml:codecov.xml --cov=typed_json_dataclass
+          poetry run python -m pytest --cov-report xml:codecov.xml --cov=typed_json_dataclass
           --cov-report=html --junit-xml=coverage.xml --cov-branch --cov-fail-under=100
           tests/
