@@ -1,6 +1,5 @@
 # typed_json_dataclass
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4344420de20b4262a4912d81cb28d175)](https://www.codacy.com/app/abatilo/typed-json-dataclass?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=abatilo/typed-json-dataclass&amp;utm_campaign=Badge_Grade)
-[![Actions Status](https://github.com/abatilo/typed-json-dataclass/workflows/Publish%20typed_json_dataclass/badge.svg)](https://github.com/abatilo/typed-json-dataclass/actions)
 [![codecov](https://codecov.io/gh/abatilo/typed-json-dataclass/branch/master/graph/badge.svg)](https://codecov.io/gh/abatilo/typed-json-dataclass)
 [![PyPI status](https://img.shields.io/pypi/status/typed_json_dataclass.svg)](https://pypi.python.org/pypi/typed_json_dataclass/)
 [![PyPI version](https://badge.fury.io/py/typed-json-dataclass.svg)](https://badge.fury.io/py/typed-json-dataclass)
