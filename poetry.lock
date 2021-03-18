@@ -142,7 +142,7 @@ flake8 = "*"
 
 [[package]]
 name = "flake8-comprehensions"
-version = "3.3.1"
+version = "3.4.0"
 description = "A flake8 plugin to help you write better list/set/dict comprehensions."
 category = "dev"
 optional = false
@@ -425,7 +425,7 @@ testing = ["pathlib2", "contextlib2", "unittest2"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "12d382ed6fd15595c4e37d4b22381c3f0e9e9ee12960d5d3c04a16c7bf3b672e"
+content-hash = "6b13c3b19022572b695619c3466607b50a8cf86ded8152b2279c2e75149f3c1e"
 
 [metadata.files]
 atomicwrites = [
@@ -532,8 +532,8 @@ flake8-class-newline = [
     {file = "flake8_class_newline-1.6.0-py3-none-any.whl", hash = "sha256:130a6991e8c58ec9a6380d273e449e61bcd974b446c97f1e16493f6350fa8d35"},
 ]
 flake8-comprehensions = [
-    {file = "flake8-comprehensions-3.3.1.tar.gz", hash = "sha256:e734bf03806bb562886d9bf635d23a65a1a995c251b67d7e007a7b608af9bd22"},
-    {file = "flake8_comprehensions-3.3.1-py3-none-any.whl", hash = "sha256:6d80dfafda0d85633f88ea5bc7de949485f71f1e28db7af7719563fe5f62dcb1"},
+    {file = "flake8-comprehensions-3.4.0.tar.gz", hash = "sha256:c00039be9f3959a26a98da3024f0fe809859bf1753ccb90e228cc40f3ac31ca7"},
+    {file = "flake8_comprehensions-3.4.0-py3-none-any.whl", hash = "sha256:7258a28e229fb9a8d16370b9c47a7d66396ba0201abb06c9d11df41b18ed64c4"},
 ]
 flake8-deprecated = [
     {file = "flake8-deprecated-1.3.tar.gz", hash = "sha256:9fa5a0c5c81fb3b34c53a0e4f16cd3f0a3395078cfd4988011cbab5fb0afa7f7"},
