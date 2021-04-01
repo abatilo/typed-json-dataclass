@@ -102,7 +102,7 @@ python-versions = "*"
 
 [[package]]
 name = "flake8-bugbear"
-version = "21.3.2"
+version = "21.4.1"
 description = "A plugin for flake8 finding likely bugs and design problems in your program. Contains warnings that don't belong in pyflakes and pycodestyle."
 category = "dev"
 optional = false
@@ -425,7 +425,7 @@ testing = ["pathlib2", "contextlib2", "unittest2"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "6b13c3b19022572b695619c3466607b50a8cf86ded8152b2279c2e75149f3c1e"
+content-hash = "4b7ca641e14f1eab4776d7b7c5ca13408f2102a855fa1c254c78a765abb0eec8"
 
 [metadata.files]
 atomicwrites = [
@@ -519,8 +519,8 @@ flake8-blind-except = [
     {file = "flake8-blind-except-0.2.0.tar.gz", hash = "sha256:02a860a1a19cb602c006a3fe0778035b0d14d3f57929b4b798bc7d6684f204e5"},
 ]
 flake8-bugbear = [
-    {file = "flake8-bugbear-21.3.2.tar.gz", hash = "sha256:cadce434ceef96463b45a7c3000f23527c04ea4b531d16c7ac8886051f516ca0"},
-    {file = "flake8_bugbear-21.3.2-py36.py37.py38-none-any.whl", hash = "sha256:5d6ccb0c0676c738a6e066b4d50589c408dcc1c5bf1d73b464b18b73cd6c05c2"},
+    {file = "flake8-bugbear-21.4.1.tar.gz", hash = "sha256:dd5395378ffd3661c2c231ff8ec138915c2e94899d7e557716b5071ab69c7214"},
+    {file = "flake8_bugbear-21.4.1-py36.py37.py38-none-any.whl", hash = "sha256:b2f00109748b5890a41d767125c1e952ad0f06f64441e4afc451d12849ce1214"},
 ]
 flake8-builtins = [
     {file = "flake8-builtins-1.5.3.tar.gz", hash = "sha256:09998853b2405e98e61d2ff3027c47033adbdc17f9fe44ca58443d876eb00f3b"},
