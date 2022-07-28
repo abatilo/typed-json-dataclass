@@ -7,6 +7,8 @@
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/typed-json-dataclass.svg)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
+# This project is open to public contributions but is not actively maintained by the original author.
+
 `typed_json_dataclass` is a library that augments the Python3.7
 [dataclass](https://docs.python.org/3/library/dataclasses.html) feature in two
 major ways:
